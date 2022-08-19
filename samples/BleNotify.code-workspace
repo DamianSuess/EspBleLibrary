@@ -6,7 +6,9 @@
 	],
 	"settings": {
 		"files.associations": {
-			"bledevice.h": "c"
+			"bledevice.h": "c",
+			"bleserver.h": "c",
+			"sdkconfig.h": "c"
 		}
 	}
 }

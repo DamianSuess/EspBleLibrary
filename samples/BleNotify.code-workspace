@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "BleNotify"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bledevice.h": "c"
+		}
+	}
+}

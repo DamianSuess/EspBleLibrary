@@ -1,9 +1,10 @@
 {
 	"folders": [
-		{
-			"path": "BleNotify"
-		}
-	],
+    {
+      "name": "EspBleLibrary",
+      "path": "."
+    }
+  ],
 	"settings": {
 		"files.associations": {
 			"bledevice.h": "c",

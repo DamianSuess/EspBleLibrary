@@ -1,5 +1,12 @@
-#include <freertos/FreeRTOS.h>   // Include the base FreeRTOS definitions
-#include <freertos/task.h>       // Include the task definitions
+// Sample BLE Notification
+// Remember, if it's a C++ app to use, `extern "C" { void app_main(); }`
+
+extern "C" {
+  void app_main();
+}
+
+#include "freertos/FreeRTOS.h"   // Include the base FreeRTOS definitions
+#include "freertos/task.h"       // Include the task definitions
 #include "sdkconfig.h"
 #include "..\..\..\src\BLEDevice.h"
 #include "..\..\..\src\BLEServer.h"

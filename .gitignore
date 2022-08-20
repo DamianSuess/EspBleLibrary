@@ -65,9 +65,9 @@ TestResult.xml
 !/installer/autorun.exe
 
 # Lib folder
-/lib/*
-!/lib/readme.txt
-!/lib/readme.md
+#/lib/*
+#!/lib/readme.txt
+#!/lib/readme.md
 
 # VSCode PlatformIO
 **/.pio

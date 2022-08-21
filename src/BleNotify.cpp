@@ -2,16 +2,16 @@
 // Remember, if it's a C++ app to use, `extern "C" { void app_main(); }`
 
 extern "C" {
-  void app_main();
+  void BleNotify();
 }
 
 #include "freertos/FreeRTOS.h"   // Include the base FreeRTOS definitions
 #include "freertos/task.h"       // Include the task definitions
 #include "sdkconfig.h"
-#include "..\..\..\src\BLEDevice.h"
-#include "..\..\..\src\BLEServer.h"
-#include "..\..\..\src\BLEUtils.h"
-#include "..\..\..\src\BLE2902.h"
+#include "BLEDevice.h"
+#include "BLEServer.h"
+#include "BLEUtils.h"
+#include "BLE2902.h"
 
 BLEServer* _server = NULL;
 BLECharacteristic* _characteristic = NULL;
@@ -37,7 +37,7 @@ class MyServerCallbacks: public BLEServerCallbacks
   }
 };
 
-void app_main()
+void BleNotify()
 {
   #if defined(CONFIG_BLUEDROID_ENABLED)
   ; // Ensures that libararies are loaded
@@ -81,6 +81,7 @@ void app_main()
   //// Serial.println("Waiting a client connection to notify...");
 }
 
+// TODO: Access the LifetimeLoop from the Init()
 void LifetimeLoop()
 {
   // notify changed value

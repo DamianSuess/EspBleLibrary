@@ -1,7 +1,6 @@
 // Sample BLE Applications
 // Remember, if it's a C++ app to use, `extern "C" { void app_main(); }`
 
-
 #include "freertos/FreeRTOS.h"   // Include the base FreeRTOS definitions
 #include "freertos/task.h"       // Include the task definitions
 #include "sdkconfig.h"
@@ -10,13 +9,12 @@
 #include "BLEUtils.h"
 #include "BLE2902.h"
 
-
 // #include "BleNotify.h"
 
 // Methods
-void Delay(uint32_t ms);
-void Initialize();
-void LifetimeLoop();
+extern "C" void Delay(uint32_t ms);
+extern "C" void Initialize();
+extern "C" void LifetimeLoop();
 
 // Fields
 BLEServer* _server = NULL;
@@ -54,7 +52,7 @@ extern "C" void app_main()
 void Initialize()
 {
   // put your setup code here, to run once:
-#if defined(CONFIG_BLUEDROID_ENABLED)
+  #if defined(CONFIG_BLUEDROID_ENABLED)
   ; // Ensures that libararies are loaded
   #endif
 

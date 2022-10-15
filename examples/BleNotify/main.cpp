@@ -1,10 +1,6 @@
 // Sample BLE Notification
 // Remember, if it's a C++ app to use, `extern "C" { void app_main(); }`
 
-extern "C" {
-  void BleNotify();
-}
-
 #include "freertos/FreeRTOS.h"   // Include the base FreeRTOS definitions
 #include "freertos/task.h"       // Include the task definitions
 #include "sdkconfig.h"
@@ -13,13 +9,19 @@ extern "C" {
 #include "BLEUtils.h"
 #include "BLE2902.h"
 
+// #include "BleNotify.h"
+
+// Methods
+extern "C" void Delay(uint32_t ms);
+extern "C" void Initialize();
+extern "C" void LifetimeLoop();
+
+// Fields
 BLEServer* _server = NULL;
 BLECharacteristic* _characteristic = NULL;
 bool _deviceConnected = false;
 bool _oldDeviceConnected = false;
 uint32_t _value = 0;
-
-void Delay(uint32_t ms);
 
 #define SERVICE_UUID        "94046761-ff6d-4773-b9b6-abccfbb0b282"
 #define CHARACTERISTIC_UUID "4c20ade9-d75d-414b-965c-0276769a85ea"
@@ -37,8 +39,21 @@ class MyServerCallbacks: public BLEServerCallbacks
   }
 };
 
-void BleNotify()
+extern "C" void app_main()
 {
+  // Same as Arduino's Startup()
+  Initialize();
+
+  for(;;)
+  {
+    // Same as Arduino's Loop()
+    LifetimeLoop();
+  }
+}
+
+void Initialize()
+{
+  // put your setup code here, to run once:
   #if defined(CONFIG_BLUEDROID_ENABLED)
   ; // Ensures that libararies are loaded
   #endif

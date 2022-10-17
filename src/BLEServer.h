@@ -7,7 +7,12 @@
 
 #ifndef COMPONENTS_CPP_UTILS_BLESERVER_H_
 #define COMPONENTS_CPP_UTILS_BLESERVER_H_
+
 #include "sdkconfig.h"
+
+#if defined(CONFIG_BT_ENABLED)
+  ; // Hello
+#endif
 #if defined(CONFIG_BLUEDROID_ENABLED)
 #include <esp_gatts_api.h>
 

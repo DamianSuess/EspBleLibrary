@@ -2,10 +2,6 @@
 
 Quickly implement Bluetooth LE on ESP32 using the ESP-IDF FreeRTOS projects.
 
-## Prototype
-
-Warning, this project space is currently a work-in-progress (WiP) and currently does not build. If you'd like to contribute to its success, please feel free to create a PR.
-
 ## Overview
 
 The ESP32 BLE Library is based on the Arduino implementation so that you can quickly implement BLE on your FreeRTOS projects without having to use the Arduino library.
@@ -56,4 +52,10 @@ Made with ❤ by, [Xeno Innovations](https://github.com/xenoinc) and [Suess Labs
 
 ## References
 
-The project is based on the works by NKolban's [ESP32_BLE_Arduino](https://github.com/nkolban/ESP32_BLE_Arduino) project and [Bluefruit](https://github.com/adafruit/Adafruit_nRF52_Arduino/tree/master/libraries/Bluefruit52Lib). Project snippets can be found [here](https://github.com/nkolban/esp32-snippets).
+The project is based on the works by NKolban's [ESP32_BLE_Arduino](https://github.com/nkolban/ESP32_BLE_Arduino) project and [Bluefruit](https://github.com/adafruit/Adafruit_nRF52_Arduino/tree/master/libraries/Bluefruit52Lib)
+
+Further resources can be found below:
+
+* [Arduino ESP32 BLE Library](https://github.com/espressif/arduino-esp32/tree/master/libraries/BLE)
+* [NKolban ESP32 Snippets](https://github.com/nkolban/esp32-snippets)
+* [Arduino BLE Library](https://github.com/arduino-libraries/ArduinoBLE)

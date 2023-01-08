@@ -4,8 +4,12 @@
 # In a terminal window run, `platformio run -t menuconfig'
 # Remember to delete the generated `sdkconfig.xxx` files and rebuild.
 
+## TODO [2023-01-08]: https://github.com/espressif/arduino-esp32/blob/master/tools/sdk/esp32c3/sdkconfig
 CONFIG_BT_ENABLED=y
 CONFIG_BTDM_CTRL_MODE_BLE_ONLY=y
 CONFIG_BTDM_CTRL_MODE_BR_EDR_ONLY=n
 CONFIG_BTDM_CTRL_MODE_BTDM=n
 CONFIG_BLUEDROID_ENABLED=y
+# CONFIG_BT_BLE_ENABLED=y       -- esp32c3, esp32s3
+# CONFIG_BT_BLE_50_FEATURES_SUPPORTED=y
+## CONFIG_BLUEDROID_ENABLED=1

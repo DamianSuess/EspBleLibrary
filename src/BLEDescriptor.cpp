@@ -24,7 +24,7 @@
  * @brief BLEDescriptor constructor.
  */
 BLEDescriptor::BLEDescriptor(const char* uuid, uint16_t len) : BLEDescriptor(BLEUUID(uuid), len) {
-}	
+}
 
 /**
  * @brief BLEDescriptor constructor.
@@ -32,7 +32,7 @@ BLEDescriptor::BLEDescriptor(const char* uuid, uint16_t len) : BLEDescriptor(BLE
 BLEDescriptor::BLEDescriptor(BLEUUID uuid, uint16_t max_len) {
 	m_bleUUID            = uuid;
 	m_value.attr_len     = 0;                                         // Initial length is 0.
-	m_value.attr_max_len = max_len;                     			  // Maximum length of the data.
+	m_value.attr_max_len = max_len;                                   // Maximum length of the data.
 	m_handle             = NULL_HANDLE;                               // Handle is initially unknown.
 	m_pCharacteristic    = nullptr;                                   // No initial characteristic.
 	m_pCallback          = nullptr;                                   // No initial callback.

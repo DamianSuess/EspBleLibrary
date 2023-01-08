@@ -2,7 +2,7 @@
  * BLE.cpp
  *
  *  Created on: Mar 16, 2017
- *      Author: kolban
+ *      Author: kolban, DSuess
  */
 #include "sdkconfig.h"
 #if defined(CONFIG_BLUEDROID_ENABLED)

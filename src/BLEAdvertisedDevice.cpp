@@ -560,7 +560,18 @@ std::string BLEAdvertisedDevice::toString() {
 		res += ", txPower: ";
 		res += val;
 	}
-	return res;
+	if (haveRSSI()) {
+	       char val[4];
+	       snprintf(val, sizeof(val), "%i", getRSSI());
+	       res += ", rssi: ";
+	       res += val;
+	 }
+	if (haveServiceData()) {
+		for (int i=0; i <getServiceDataCount(); i++) {
+			res += ", serviceData: " + getServiceData(i);
+		}
+	}
+ 	return res;
 } // toString
 
 uint8_t* BLEAdvertisedDevice::getPayload() {

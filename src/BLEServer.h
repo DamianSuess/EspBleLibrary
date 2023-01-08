@@ -10,9 +10,6 @@
 
 #include "sdkconfig.h"
 
-#if defined(CONFIG_BT_ENABLED)
-  ; // Hello
-#endif
 #if defined(CONFIG_BLUEDROID_ENABLED)
 #include <esp_gatts_api.h>
 

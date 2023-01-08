@@ -1,12 +1,12 @@
 {
   "name": "ESP_BLE_Library",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Bluetooth LE Manager",
   "keywords": "BLE, Bluetooth, esp32, esp32-c3",
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/username/hello-world.git"
+    "url": "https://github.com/DamianSuess/EspBleLibrary.git"
   },
   "authors":
   [

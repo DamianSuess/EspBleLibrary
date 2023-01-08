@@ -571,7 +571,7 @@ std::string BLEAdvertisedDevice::toString() {
 			res += ", serviceData: " + getServiceData(i);
 		}
 	}
- 	return res;
+	return res;
 } // toString
 
 uint8_t* BLEAdvertisedDevice::getPayload() {

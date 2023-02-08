@@ -1,5 +1,5 @@
 {
-  "name": "ESP_BLE_Library",
+  "name": "EspBleLibrary",
   "version": "0.6.0",
   "description": "Bluetooth LE Manager",
   "keywords": "BLE, Bluetooth, esp32, esp32-c3",

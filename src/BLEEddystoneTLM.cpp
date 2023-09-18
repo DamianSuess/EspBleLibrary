@@ -78,30 +78,30 @@ std::string BLEEddystoneTLM::toString() {
   out += " C\n";
 
   out += "Adv. Count ";
-  snprintf(val, sizeof(val), "%d", ENDIAN_CHANGE_U32(m_eddystoneData.advCount));
+  snprintf(val, sizeof(val), "%lu", ENDIAN_CHANGE_U32(m_eddystoneData.advCount));
   out += val;
   out += "\n";
 
   out += "Time in seconds ";
-  snprintf(val, sizeof(val), "%d", rawsec/10);
+  snprintf(val, sizeof(val), "%lu", rawsec/10);
   out += val;
   out += "\n";
 
   out += "Time ";
 
-  snprintf(val, sizeof(val), "%04d", rawsec / 864000);
+  snprintf(val, sizeof(val), "%04lu", rawsec / 864000);
   out += val;
   out += ".";
 
-  snprintf(val, sizeof(val), "%02d", (rawsec / 36000) % 24);
+  snprintf(val, sizeof(val), "%02lu", (rawsec / 36000) % 24);
   out += val;
   out += ":";
 
-  snprintf(val, sizeof(val), "%02d", (rawsec / 600) % 60);
+  snprintf(val, sizeof(val), "%02lu", (rawsec / 600) % 60);
   out += val;
   out += ":";
 
-  snprintf(val, sizeof(val), "%02d", (rawsec / 10) % 60);
+  snprintf(val, sizeof(val), "%02lu", (rawsec / 10) % 60);
   out += val;
   out += "\n";
 

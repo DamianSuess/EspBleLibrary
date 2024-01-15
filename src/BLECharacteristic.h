@@ -7,6 +7,9 @@
 
 #ifndef COMPONENTS_CPP_UTILS_BLECHARACTERISTIC_H_
 #define COMPONENTS_CPP_UTILS_BLECHARACTERISTIC_H_
+#include "soc/soc_caps.h"
+#if SOC_BLE_SUPPORTED
+
 #include "sdkconfig.h"
 #if defined(CONFIG_BLUEDROID_ENABLED)
 #include <string>
@@ -33,14 +36,14 @@ public:
 	BLEDescriptor* getByUUID(const char* uuid);
 	BLEDescriptor* getByUUID(BLEUUID uuid);
 	BLEDescriptor* getByHandle(uint16_t handle);
-	std::string	toString();
+	String	toString();
 	void handleGATTServerEvent(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t* param);
 	BLEDescriptor* getFirst();
 	BLEDescriptor* getNext();
 private:
-	std::map<BLEDescriptor*, std::string> m_uuidMap;
+	std::map<BLEDescriptor*, String> m_uuidMap;
 	std::map<uint16_t, BLEDescriptor*> m_handleMap;
-	std::map<BLEDescriptor*, std::string>::iterator m_iterator;
+	std::map<BLEDescriptor*, String>::iterator m_iterator;
 };
 
 
@@ -60,7 +63,7 @@ public:
 	BLEDescriptor* getDescriptorByUUID(const char* descriptorUUID);
 	BLEDescriptor* getDescriptorByUUID(BLEUUID descriptorUUID);
 	BLEUUID        getUUID();
-	std::string    getValue();
+	String         getValue();
 	uint8_t*       getData();
 	size_t         getLength();
 
@@ -72,15 +75,15 @@ public:
 	void setNotifyProperty(bool value);
 	void setReadProperty(bool value);
 	void setValue(uint8_t* data, size_t size);
-	void setValue(std::string value);
+	void setValue(String value);
 	void setValue(uint16_t& data16);
 	void setValue(uint32_t& data32);
 	void setValue(int& data32);
 	void setValue(float& data32);
-	void setValue(double& data64);
+	void setValue(double& data64); 
 	void setWriteProperty(bool value);
 	void setWriteNoResponseProperty(bool value);
-	std::string toString();
+	String toString();
 	uint16_t getHandle();
 	void setAccessPermissions(esp_gatt_perm_t perm);
 
@@ -89,7 +92,7 @@ public:
 	static const uint32_t PROPERTY_NOTIFY    = 1<<2;
 	static const uint32_t PROPERTY_BROADCAST = 1<<3;
 	static const uint32_t PROPERTY_INDICATE  = 1<<4;
-	static const uint32_t PROPERTY_WRITE_NR  = 1<<5;    // RENAME - WriteWithoutResponse
+	static const uint32_t PROPERTY_WRITE_NR  = 1<<5;
 
 	static const uint32_t indicationTimeout = 1000;
 
@@ -121,7 +124,7 @@ private:
 	void                 setHandle(uint16_t handle);
 	FreeRTOS::Semaphore m_semaphoreCreateEvt = FreeRTOS::Semaphore("CreateEvt");
 	FreeRTOS::Semaphore m_semaphoreConfEvt   = FreeRTOS::Semaphore("ConfEvt");
-	FreeRTOS::Semaphore m_semaphoreSetValue  = FreeRTOS::Semaphore("SetValue");
+	FreeRTOS::Semaphore m_semaphoreSetValue  = FreeRTOS::Semaphore("SetValue");  
 }; // BLECharacteristic
 
 
@@ -154,7 +157,7 @@ public:
 	 */
 	virtual void onRead(BLECharacteristic* pCharacteristic, esp_ble_gatts_cb_param_t* param);
 	/**
-	 * @brief DEPRECATED! Callback function to support a read request. Called only if onRead(,) not overrided.
+	 * @brief DEPRECATED! Callback function to support a read request. Called only if onRead(,) not overrided. 
 	 * @param [in] pCharacteristic The characteristic that is the source of the event.
 	 */
 	virtual void onRead(BLECharacteristic* pCharacteristic);
@@ -166,7 +169,7 @@ public:
 	 */
 	virtual void onWrite(BLECharacteristic* pCharacteristic, esp_ble_gatts_cb_param_t* param);
 	/**
-	 * @brief DEPRECATED! Callback function to support a write request. Called only if onWrite(,) not overrided.
+	 * @brief DEPRECATED! Callback function to support a write request. Called only if onWrite(,) not overrided. 
 	 * @param [in] pCharacteristic The characteristic that is the source of the event.
 	 */
 	virtual void onWrite(BLECharacteristic* pCharacteristic);
@@ -185,5 +188,7 @@ public:
 	 */
 	virtual void onStatus(BLECharacteristic* pCharacteristic, Status s, uint32_t code);
 };
+
 #endif /* CONFIG_BLUEDROID_ENABLED */
+#endif /* SOC_BLE_SUPPORTED */
 #endif /* COMPONENTS_CPP_UTILS_BLECHARACTERISTIC_H_ */

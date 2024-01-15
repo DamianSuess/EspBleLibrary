@@ -7,9 +7,10 @@
 
 #ifndef COMPONENTS_CPP_UTILS_BLESERVER_H_
 #define COMPONENTS_CPP_UTILS_BLESERVER_H_
+#include "soc/soc_caps.h"
+#if SOC_BLE_SUPPORTED
 
 #include "sdkconfig.h"
-
 #if defined(CONFIG_BLUEDROID_ENABLED)
 #include <esp_gatts_api.h>
 
@@ -26,7 +27,7 @@
 #include "BLEAddress.h"
 
 class BLEServerCallbacks;
-/* TODO possibly refactor this struct */
+/* TODO possibly refactor this struct */ 
 typedef struct {
 	void *peer_device;		// peer device BLEClient or BLEServer - maybe its better to have 2 structures or union here
 	bool connected;			// do we need it?
@@ -40,13 +41,13 @@ typedef struct {
 class BLEServiceMap {
 public:
 	BLEService* getByHandle(uint16_t handle);
-	BLEService* getByUUID(const char* uuid);
+	BLEService* getByUUID(const char* uuid);	
 	BLEService* getByUUID(BLEUUID uuid, uint8_t inst_id = 0);
 	void        handleGATTServerEvent(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t* param);
 	void        setByHandle(uint16_t handle, BLEService* service);
 	void        setByUUID(const char* uuid, BLEService* service);
 	void        setByUUID(BLEUUID uuid, BLEService* service);
-	std::string toString();
+	String toString();
 	BLEService* getFirst();
 	BLEService* getNext();
 	void 		removeService(BLEService *service);
@@ -54,8 +55,8 @@ public:
 
 private:
 	std::map<uint16_t, BLEService*>    m_handleMap;
-	std::map<BLEService*, std::string> m_uuidMap;
-	std::map<BLEService*, std::string>::iterator m_iterator;
+	std::map<BLEService*, String> m_uuidMap;
+	std::map<BLEService*, String>::iterator m_iterator;
 };
 
 
@@ -65,7 +66,7 @@ private:
 class BLEServer {
 public:
 	uint32_t        getConnectedCount();
-	BLEService*     createService(const char* uuid);
+	BLEService*     createService(const char* uuid);	
 	BLEService*     createService(BLEUUID uuid, uint32_t numHandles=15, uint8_t inst_id=0);
 	BLEAdvertising* getAdvertising();
 	void            setCallbacks(BLEServerCallbacks* pCallbacks);
@@ -136,7 +137,7 @@ public:
 	 * @param [in] pServer A reference to the %BLE server that received the existing client disconnection.
 	 */
 	virtual void onDisconnect(BLEServer* pServer);
-  virtual void onDisconnect(BLEServer* pServer, esp_ble_gatts_cb_param_t *param);
+	virtual void onDisconnect(BLEServer* pServer, esp_ble_gatts_cb_param_t *param);
 
 	/**
 	 * @brief Handle a new client connection.
@@ -151,4 +152,5 @@ public:
 
 
 #endif /* CONFIG_BLUEDROID_ENABLED */
+#endif /* SOC_BLE_SUPPORTED */
 #endif /* COMPONENTS_CPP_UTILS_BLESERVER_H_ */

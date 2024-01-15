@@ -2,8 +2,11 @@
  * BLE.cpp
  *
  *  Created on: Mar 16, 2017
- *      Author: kolban, DSuess
+ *      Author: kolban
  */
+#include "soc/soc_caps.h"
+#if SOC_BLE_SUPPORTED
+
 #include "sdkconfig.h"
 #if defined(CONFIG_BLUEDROID_ENABLED)
 #include <freertos/FreeRTOS.h>
@@ -41,7 +44,7 @@
 BLEServer* BLEDevice::m_pServer = nullptr;
 BLEScan*   BLEDevice::m_pScan   = nullptr;
 BLEClient* BLEDevice::m_pClient = nullptr;
-bool       initialized          = false;
+bool       initialized          = false;  
 esp_ble_sec_act_t BLEDevice::m_securityLevel = (esp_ble_sec_act_t)0;
 BLESecurityCallbacks* BLEDevice::m_securityCallbacks = nullptr;
 uint16_t   BLEDevice::m_localMTU = 23;  // not sure if this variable is useful
@@ -315,11 +318,11 @@ gatts_event_handler BLEDevice::m_customGattsHandler = nullptr;
  * @param [in] serviceUUID
  * @param [in] characteristicUUID
  */
-/* STATIC */ std::string BLEDevice::getValue(BLEAddress bdAddress, BLEUUID serviceUUID, BLEUUID characteristicUUID) {
+/* STATIC */ String BLEDevice::getValue(BLEAddress bdAddress, BLEUUID serviceUUID, BLEUUID characteristicUUID) {
 	log_v(">> getValue: bdAddress: %s, serviceUUID: %s, characteristicUUID: %s", bdAddress.toString().c_str(), serviceUUID.toString().c_str(), characteristicUUID.toString().c_str());
 	BLEClient* pClient = createClient();
 	pClient->connect(bdAddress);
-	std::string ret = pClient->getValue(serviceUUID, characteristicUUID);
+	String ret = pClient->getValue(serviceUUID, characteristicUUID);
 	pClient->disconnect();
 	log_v("<< getValue");
 	return ret;
@@ -330,7 +333,7 @@ gatts_event_handler BLEDevice::m_customGattsHandler = nullptr;
  * @brief Initialize the %BLE environment.
  * @param deviceName The device name of the device.
  */
-/* STATIC */ void BLEDevice::init(std::string deviceName) {
+/* STATIC */ void BLEDevice::init(String deviceName) {
 	if(!initialized){
 		initialized = true; // Set the initialization flag to ensure we are only initialized once.
 
@@ -348,7 +351,7 @@ gatts_event_handler BLEDevice::m_customGattsHandler = nullptr;
 		}
 
 #ifndef CONFIG_BT_CLASSIC_ENABLED
-		esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT);
+		esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT);  
 #endif
 		esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
 		errRc = esp_bt_controller_init(&bt_cfg);
@@ -474,7 +477,7 @@ gatts_event_handler BLEDevice::m_customGattsHandler = nullptr;
  * @param [in] serviceUUID
  * @param [in] characteristicUUID
  */
-/* STATIC */ void BLEDevice::setValue(BLEAddress bdAddress, BLEUUID serviceUUID, BLEUUID characteristicUUID, std::string value) {
+/* STATIC */ void BLEDevice::setValue(BLEAddress bdAddress, BLEUUID serviceUUID, BLEUUID characteristicUUID, String value) {
 	log_v(">> setValue: bdAddress: %s, serviceUUID: %s, characteristicUUID: %s", bdAddress.toString().c_str(), serviceUUID.toString().c_str(), characteristicUUID.toString().c_str());
 	BLEClient* pClient = createClient();
 	pClient->connect(bdAddress);
@@ -487,8 +490,8 @@ gatts_event_handler BLEDevice::m_customGattsHandler = nullptr;
  * @brief Return a string representation of the nature of this device.
  * @return A string representation of the nature of this device.
  */
-/* STATIC */ std::string BLEDevice::toString() {
-	std::string res = "BD Address: " + getAddress().toString();
+/* STATIC */ String BLEDevice::toString() {
+	String res = "BD Address: " + getAddress().toString();
 	return res;
 } // toString
 
@@ -577,7 +580,7 @@ BLEAdvertising* BLEDevice::getAdvertising() {
 		log_i("create advertising");
 	}
 	log_d("get advertising");
-	return m_bleAdvertising;
+	return m_bleAdvertising; 
 }
 
 void BLEDevice::startAdvertising() {
@@ -657,8 +660,8 @@ void BLEDevice::removePeerDevice(uint16_t conn_id, bool _client) {
     if (release_memory) {
         esp_bt_controller_mem_release(ESP_BT_MODE_BTDM);  // <-- require tests because we released classic BT memory and this can cause crash (most likely not, esp-idf takes care of it)
     } else {
-        initialized = false;
-    }
+        initialized = false;   
+    } 
 #endif
 }
 
@@ -674,4 +677,5 @@ void BLEDevice::setCustomGattsHandler(gatts_event_handler handler) {
 	m_customGattsHandler = handler;
 }
 
-#endif // CONFIG_BLUEDROID_ENABLED
+#endif /* CONFIG_BLUEDROID_ENABLED */
+#endif /* SOC_BLE_SUPPORTED */
